@@ -1,0 +1,24 @@
+{
+  "name": "homebot3",
+  "version": "1.0.0",
+  "description": "Home Automation using Flask, Angular and etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Syamil Maulod",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-html-replace": "^1.6.1",
+    "jshint": "^2.9.2"
+  },
+  "dependencies": {
+    "gulp-clean": "^0.3.2",
+    "gulp-connect": "^4.1.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-uglify": "^1.5.3"
+  }
+}

@@ -3,10 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"
 
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body ng-app="app">
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand dash-name " href="#">Chairman Meow</a>
+        </div>
+        <div class="clock">12:00</div>
+        <a class="nav navbar-nav navbar-right date">2015-01-01</a>
+    </div>
+</div>
+<div class="container-fluid partial">
+
+
+    <div class="bus-stuff" ng-controller="nextbus as app">
+        <div class="col-xs-6 col-md-4 bus-data" ng-repeat="bus in data">
+            <span class="bus-number">{{ bus.Bus }}</span>
+            <span class="bus-arrival" ng-repeat="arrival in bus.ArrivalTimes">{{ arrival.NextBus }}</span>
+            <span class="bus-arrival" ng-repeat="arrival in bus.ArrivalTimes">{{ arrival.SubsequentBus }}</span>
+        </div>
+    </div>
+
+
+</div>
+
+<nav class="navbar-inverse navbar-fixed-bottom" role="navigation">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <div class='col-xs-4'>
+                <button type="button" class="btn btn-default navbar-btn">NextBus</button>
+            </div>
+
+            <div class='col-xs-4'>
+                <button type="button" class="btn btn-default navbar-btn">Transit</button>
+            </div>
+            <div class='col-xs-4r'>
+                <button type="button" class="btn btn-default navbar-btn">WhosHome</button>
+            </div>
+
+        </ul>
+    </div>
+
+</nav>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dash.js"></script>
 
 </body>
 </html>
+
