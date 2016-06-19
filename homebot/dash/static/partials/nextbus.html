@@ -1,0 +1,7 @@
+<div class="bus-stuff" ng-controller="nextbus as app">
+        <div class="col-xs-6 col-md-4 bus-data" ng-repeat="bus in data">
+            <span class="bus-number">{{ bus.Bus }}</span>
+            <span class="bus-arrival" ng-repeat="arrival in bus.ArrivalTimes">{{ arrival.NextBus }}</span>
+            <span class="bus-arrival" ng-repeat="arrival in bus.ArrivalTimes">{{ arrival.SubsequentBus }}</span>
+        </div>
+</div>
