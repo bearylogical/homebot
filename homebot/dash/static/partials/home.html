@@ -1,0 +1,34 @@
+<div ng-controller="home as app">
+    <div class="row">
+        <div class="col-md-12 greeting">
+            <h1> Good {{ greeting }} , Syamil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile orange">
+
+                <div class="col-md-2">
+                   <div class="temp">{{ weather.currentTemp }}</div>
+                </div>
+                <div class="col-md-10">
+                   <div>The weather is currently <span class="weather-state">{{ weather.currentState }} </span></div>
+                    <div class="pubdate"> {{ weather.pubDate }}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tile green">
+                <div class="row">
+                    <div class="transit_text">It will take {{ transit.duration }} if you leave at {{ transit.departure_time }}.</div>
+                </div>
+                <div class="row">
+                    <div class="transit_arrive">Your will arrive by: {{ transit.arrival_time }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,7 +1,6 @@
 import requests
 import datetime
 import math
-import json
 from collections import OrderedDict
 
 

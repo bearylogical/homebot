@@ -24,4 +24,4 @@ db = SQLAlchemy(homebot)
 db.create_all()  # In case user table doesn't exists already. Else remove it.
 
 homebot.register_blueprint(api_module,url_prefix='/api')
-homebot.register_blueprint(dash_module)
+homebot.register_blueprint(dash_module,url_prefix='/dash')
