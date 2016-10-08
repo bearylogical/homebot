@@ -126,8 +126,8 @@ widget {
 	bottom: 0;
 	width: 100%;
 	height: 100px;
-	background-color: #21232D;
-	border-top: solid 1px rgba(255, 255, 255, 0.3);
+	background-color: black;
+	border-top: solid 1px black);
 	clear: both;
 }
 
@@ -226,7 +226,7 @@ h3 {
 }
 
 .navbar-btn {
-	border-radius: 5px !important;
+	border-radius: 0px !important;
 }
 
 .btn-default {
@@ -287,9 +287,12 @@ img.resize{
 }
 
 .greeting{
-	font-size: 30px;
+	font-size: 50px;
+    padding-top: 20px;
+    padding-bottom: 30px;
 	text-align: left;
 	color: white;
+    font-weight:100 !important;
 }
 
 .weather-state{
@@ -300,33 +303,11 @@ img.resize{
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  background: #fff;
+  background: #f5faf0;
   padding: 20px;
   margin-bottom: 30px;
+  font-weight: 500;
 }
-.tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
-  color: #fff;
-}
-.tile.purple {
-  background: #5133AB;
-}
-.tile.purple:hover {
-  background: #3e2784;
-}
-
-.tile.green {
-
-  background: #00A600;
-}
-
-.tile.blue {
-  background: #2672EC;
-}
-
-.tile.orange {
-  background: #DC572E;
-}
-
 .temp {
     background-color: #FF0033; /* Red */
     color: white;
@@ -346,7 +327,7 @@ img.resize{
     text-align: right;
     font-size: 9px;
     position:absolute;
-    top: 170%;
+    top: 90%;
     right: -1%;
 }
 
@@ -357,4 +338,27 @@ img.resize{
 .transit_arrive{
     text-align: center;
     padding-top: 5px;
+}
+
+.reallysmall{
+    font-size: 10px;
+    position:relative;
+    bottom: 15px;
+}
+
+.label{
+    background-color: red;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    height: 1.9em;
+    display: inline-block;
+    text-decoration: none;
+    padding-top: 16px;
+    border-radius: 0 !important;
+    font-weight: 200 !important;
+}
+
+.angular-google-map-container {
+    height: 400px;
 }

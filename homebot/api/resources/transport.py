@@ -19,7 +19,7 @@ class LTA_Transport:
 
         url = uri + path
         payload = ('BusStopID=' + BusStopID + '&SST=True')
-
+        print (url)
         r = requests.get(url, headers=headers, params=payload)
         j = r.json()
         busArr = j['Services']

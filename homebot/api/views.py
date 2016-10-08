@@ -15,7 +15,7 @@ class nextbus(Resource):
 
     def get(self):
         bus = LTA_Transport(config)
-        arrivals = bus.get_timings('85091')
+        arrivals = bus.get_timings(str(config['location']['busstop']))
         return arrivals
 
 class transit(Resource):
@@ -31,8 +31,8 @@ class PSI(Resource):
 
 class weather(Resource):
     def get(self):
-        Weather = YAHOOweather()
-        return Weather.get_weather()
+        Weather = NEAweather(config)
+        return Weather.get_forecast()
 
 api.add_resource(nextbus,'/v1/nextbus')
 api.add_resource(transit,'/v1/transit')

@@ -1,4 +1,4 @@
-var app = angular.module("app", ['ui.router'])  ;
+var app = angular.module("app", ['ui.router','uiGmapgoogle-maps'])  ;
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -11,8 +11,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/nextbus',
             templateUrl: '/dash/partials/nextbus.html'
         })
+        .state('transit', {
+            url: '/nextbus',
+            templateUrl: '/dash/partials/transit.html'
+        })
 });
 
+app.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+});
 app.controller("nextbus", function ($scope, $http,$interval) {
 
     $scope.refreshBus = function () {
@@ -70,4 +81,9 @@ app.controller("home", function($scope,$http,$interval){
     $scope.getPSI();
     $scope.getWeather();
     $interval(function (){$scope.getPSI();},7200000);
+});
+
+app.controller("transit", function ($scope, $http,$interval) {
+
+   $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 });
