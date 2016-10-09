@@ -19,7 +19,6 @@ class LTA_Transport:
 
         url = uri + path
         payload = ('BusStopID=' + BusStopID + '&SST=True')
-        print (url)
         r = requests.get(url, headers=headers, params=payload)
         j = r.json()
         busArr = j['Services']
@@ -31,29 +30,56 @@ class LTA_Transport:
         for index in range(len(busArr)):
             arrivalTemplate = OrderedDict({
                 'Bus': ' ',
-                'ArrivalTimes':
+                'Data':
                     [
                         {
-                            'NextBus': '',
-                            'SubsequentBus': '',
-                            'SubsequentBus3': ''
+                            'NextBus':
+                                [
+                                    {
+                                        'ArrivalTime':'',
+                                        'Latitude':'',
+                                        'Longitude':''
+                                    }
+                                ],
+                            'SubsequentBus':
+                                [
+                                    {
+                                        'ArrivalTime': '',
+                                        'Latitude': '',
+                                        'Longitude': ''
+                                    }
+                                ],
+
+                            'SubsequentBus3':
+                                [
+                                    {
+                                        'ArrivalTime': '',
+                                        'Latitude': '',
+                                        'Longitude': ''
+                                    }
+                                ],
                         }
                     ]
             })
-            currBus = (busArr[index]['ServiceNo'])
-            arrivalTemplate['Bus'] = currBus
-            ArrivalTimes = sorted((arrivalTemplate['ArrivalTimes'][0]).keys())
+            arrivalTemplate['Bus'] = (busArr[index]['ServiceNo'])
+            ArrivalTimes = sorted((arrivalTemplate['Data'][0]).keys())
             for t in range(len(ArrivalTimes)):
-                descArrival = ArrivalTimes[t]
-                estdArrival = ((busArr[index])[descArrival]['EstimatedArrival'])[11:19]
+                descKey = ArrivalTimes[t]
+                if ((busArr[index][descKey]['Latitude']) or (busArr[index][descKey]['Latitude'])):
+                    arrivalTemplate['Data'][0][descKey][0]['Latitude'] = busArr[index][descKey]['Latitude']
+                    arrivalTemplate['Data'][0][descKey][0]['Longitude'] = busArr[index][descKey]['Longitude']
+                else:
+                    arrivalTemplate['Data'][0][descKey][0]['Latitude'] = 'N.A.'
+                    arrivalTemplate['Data'][0][descKey][0]['Longitude'] = 'N.A.'
+                estdArrival = ((busArr[index])[descKey]['EstimatedArrival'])[11:19]
                 if (estdArrival):
                     arrivalInterval = math.trunc((datetime.datetime.strptime(estdArrival, fmt) - now).seconds / 60)
                     if (arrivalInterval == 0 or arrivalInterval > 100):
-                        (arrivalTemplate['ArrivalTimes'][0][descArrival]) = 'Arr'
+                        (arrivalTemplate['Data'][0][descKey][0]['ArrivalTime']) = 'Arr'
                     else:
-                        (arrivalTemplate['ArrivalTimes'][0][descArrival]) = str(arrivalInterval) + ' mins'
+                        (arrivalTemplate['Data'][0][descKey][0]['ArrivalTime']) = str(arrivalInterval) + ' mins'
                 else:
-                    (arrivalTemplate['ArrivalTimes'][0][descArrival]) = 'N.A.'
+                    (arrivalTemplate['Data'][0][descKey][0]['ArrivalTime']) = 'N.A.'
             arrival.insert(index, arrivalTemplate)
         return arrival
 

@@ -1,4 +1,4 @@
-var app = angular.module("app", ['ui.router','uiGmapgoogle-maps'])  ;
+var app = angular.module("app", ['ui.router','ngMap'])  ;
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -12,30 +12,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: '/dash/partials/nextbus.html'
         })
         .state('transit', {
-            url: '/nextbus',
+            url: '/transit',
             templateUrl: '/dash/partials/transit.html'
         })
 });
 
-app.config(function(uiGmapGoogleMapApiProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
-        v: '3.20', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
-    });
-});
 app.controller("nextbus", function ($scope, $http,$interval) {
 
     $scope.refreshBus = function () {
         $http.get('/api/v1/nextbus').success(function (data) {
             $scope.data = data;
-            // $scope.busArrivals = [];
-            // angular.forEach(data, function (bus, index) {
-            //     angular.forEach(bus.ArrivalTimes, function (arrivalTimes, index) {
-            //         $scope.busArrivals.push(arrivalTimes);
-            //     });
-            // });
-        })
+        });
     };
     $scope.refreshBus();
     $interval(function (){$scope.refreshBus();},120000);
@@ -83,7 +70,19 @@ app.controller("home", function($scope,$http,$interval){
     $interval(function (){$scope.getPSI();},7200000);
 });
 
-app.controller("transit", function ($scope, $http,$interval) {
+app.controller("transit", function ($scope,$http,$interval) {
 
-   $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+    var bus = this;
+    bus.positions = [];
+
+   $scope.refreshBus = function () {
+        $http.get('/api/v1/nextbus').success(function (data) {
+            $scope.data = data;
+            var lat = data.Data.NextBus.latitude;
+            var long = data.Data.NextBus.longitude;
+            bus.positions.push([lat,long]);
+        });
+    };
+    $scope.refreshBus();
+    $interval(function (){$scope.refreshBus();},120000);
 });
