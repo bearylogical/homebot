@@ -2,7 +2,7 @@ from flask_restful import Resource, Api
 
 from . import api_module
 from .resources.transport import LTA_Transport, googleTransit
-from .resources.weather import NEAweather,YAHOOweather
+from .resources.weather import NEAweather,YAHOOweather, darkskyWeather
 import yaml
 import os.path
 
@@ -27,16 +27,17 @@ class transit(Resource):
 class PSI(Resource):
     def get(self):
         psi = NEAweather(config)
-        return psi.get_PSI()
+        return psi.get_PSI
 
-class weather(Resource):
+
+class Weather(Resource):
     def get(self):
-        Weather = NEAweather(config)
-        return Weather.get_forecast()
+        weather = darkskyWeather(config)
+        return weather.get_forecast()
 
 api.add_resource(nextbus,'/v1/nextbus')
 api.add_resource(transit,'/v1/transit')
-api.add_resource(weather,'/v1/weather')
+api.add_resource(Weather,'/v1/weather')
 api.add_resource(PSI,'/v1/psi')
 
 

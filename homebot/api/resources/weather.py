@@ -1,6 +1,7 @@
 import urllib.request
 import xml.etree.ElementTree as ET
 import requests
+import time
 
 
 class NEAweather:
@@ -49,7 +50,7 @@ class NEAweather:
             return 'Incorrect Code'
 
     def get_forecast(self):
-        uri = 'http://www.nea.gov.sg/'
+        uri = 'http://api.nea.gov.sg/'
         path = 'api/WebAPI/?dataset='
 
         datasetName = ['24hrs_forecast','2hr_nowcast']
@@ -80,9 +81,10 @@ class NEAweather:
 
         return weatherdata
 
+
     def get_PSI(self):
-        uri = 'http://www.nea.gov.sg/'
-        path = 'api/WebAPI/?dataset='
+        uri = 'http://api.nea.gov.sg/'
+        path = '/WebAPI/?dataset='
 
         datasetName=['psi_update','pm2.5_update']
 
@@ -90,7 +92,7 @@ class NEAweather:
         url_pm25 = uri + path + datasetName[1] + '&keyref=' + self.APIkey
 
         r_psi = urllib.request.urlopen(url_psi)
-        # print(r_psi)
+        print(r_psi)
         tree_psi = ET.parse(r_psi)
         root_psi = tree_psi.getroot()
 
@@ -189,5 +191,37 @@ class YAHOOweather:
         weatherdata['currentHigh'] = j['query']['results']['channel']['item']['forecast'][0]['high'] + '°C'
         weatherdata['currentLow'] = j['query']['results']['channel']['item']['forecast'][0]['low'] + '°C'
         return (weatherdata)
+
+
+class darkskyWeather:
+    def __init__(self,config):
+        self.APIkey = config['darksky']['key']
+        self.lat = str(config['location']['lat'])
+        self.long = str(config['location']['lng'])
+
+    def get_forecast(self):
+        uri = 'https://api.darksky.net/'
+        path = 'forecast/'
+        url = uri + path + self.APIkey + '/' + self.lat + ',' + self.long + '?units=si'
+
+        r = requests.get(url)
+        j = r.json()
+        weatherdata = {}
+
+        weatherdata['pubDate'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(j['currently']['time']))
+        weatherdata['humidity'] = str((j['currently']['humidity']*100)/100) + '%'
+        weatherdata['currentState'] = str(j['daily']['data'][0]['summary'])
+        weatherdata['currentTemp'] = str(j['currently']['temperature'])
+        weatherdata['currentHigh'] = str(j['daily']['data'][0]['temperatureMax']) + ' °C'
+        weatherdata['currentLow'] = str(j['daily']['data'][0]['temperatureMin']) + ' °C'
+
+        return weatherdata
+
+
+
+
+
+
+
 
 
