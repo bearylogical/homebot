@@ -81,22 +81,29 @@ class NEAweather:
 
         return weatherdata
 
-
     def get_PSI(self):
         uri = 'http://api.nea.gov.sg/'
-        path = '/WebAPI/?dataset='
+        path = 'api/WebAPI/?dataset='
 
         datasetName=['psi_update','pm2.5_update']
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"}
+
 
         url_psi = uri + path + datasetName[0] + '&keyref=' + self.APIkey
         url_pm25 = uri + path + datasetName[1] + '&keyref=' + self.APIkey
 
-        r_psi = urllib.request.urlopen(url_psi)
-        print(r_psi)
+        # print (url_psi)
+        req_psi = urllib.request.Request(url_psi, headers=headers)
+        r_psi = urllib.request.urlopen(req_psi)
+        # print(r_psi)
         tree_psi = ET.parse(r_psi)
         root_psi = tree_psi.getroot()
 
-        r_pm25 = urllib.request.urlopen(url_pm25)
+
+        req_pm25 = urllib.request.Request(url_pm25, headers=headers)
+        r_pm25 = urllib.request.urlopen(req_pm25)
         # print (r_pm25)
         tree_pm25 =ET.parse(r_pm25)
         root_pm25 = tree_pm25.getroot()

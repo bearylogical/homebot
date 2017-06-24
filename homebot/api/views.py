@@ -27,8 +27,7 @@ class transit(Resource):
 class PSI(Resource):
     def get(self):
         psi = NEAweather(config)
-        return psi.get_PSI
-
+        return psi.get_PSI()
 
 class Weather(Resource):
     def get(self):
