@@ -94,7 +94,7 @@ class googleTransit:
 
         if startDest=='' and endDest=='':
             startDest='35 Jalan Tanjong, Singapore 468040'
-            endDest='Applied Materials South East Asia Pte Ltd, 8 Upper Changi Road North, Singapore 506906'
+            endDest='Micron Semiconductor Singapore'
 
         origin = 'origin=' +  startDest.replace(' ','+')
         destination = 'destination=' + endDest.replace(' ','+')

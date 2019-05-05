@@ -109,7 +109,7 @@ class NEAweather:
         root_pm25 = tree_pm25.getroot()
         PSI = {}
         PSI['psi'] = root_psi[2][2][3][1].attrib['value']
-        PSI['pm2.5'] = root_pm25[2][2][3][0].attrib['value']
+        PSI['pm25'] = root_pm25[2][2][3][0].attrib['value']
 
         return PSI
 

@@ -106,3 +106,4 @@ ENV/
 
 /homebot/dash/node_modules/
 /homebot/dash/static/bower_components/
+config.yaml
