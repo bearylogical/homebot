@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component name="dataSourceStorage">
-  <data-source name="Sqlite (Xerial) - homebot.db" uuid="ac73cb0e-6558-4cf1-bff5-cd5afe8ca9b7">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
-  </data-source>
-</component>
